@@ -41,6 +41,10 @@ SourceFiles
 
 #include "scalarField.H"
 #include "typeInfo.H"
+#include "IFstream.H"
+#include "dictionary.H"
+#include "OSspecific.H"
+#include "error.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -79,7 +83,6 @@ public:
             const scalar A,
             const scalar beta,
             const scalar Ta,
-            const scalar phiEx,
             const word& name = word::null
         );
 
@@ -89,10 +92,12 @@ public:
             const speciesTable& species,
             const dictionary& dict
         );
-
+	
 
     // Member Functions
-
+	
+	static scalar readPhi();
+	
         //- Return the type name
         static word type()
         {

@@ -22,7 +22,7 @@ EXE_INC = \
     -I$(LIB_SRC)/thermophysicalModels/thermophysicalProperties/lnInclude  \
     -I/home/user-t6/OpenFOAM/OpenFoam-diw/devFoam/src/twoSCH4Bfer/src/lnInclude
 
-EXE_LIBS = \
+LIB_LIBS = \
     -lOpenFOAM \
     -lspecie \
     -lchemistryModel \
@@ -31,7 +31,7 @@ EXE_LIBS = \
     -lfiniteVolume \
     -lcompressibleTransportModels \
     -lODE \
-    -lTwoSCH4Bfer \
+    $(FOAM_USER_APPBIN)/twoSCH4Bfer.so \
     -lmeshTools 
     
 

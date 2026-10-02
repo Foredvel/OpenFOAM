@@ -32,14 +32,13 @@ inline Foam::ArrheniusReactionRateExtend::ArrheniusReactionRateExtend
     const scalar A,
     const scalar beta,
     const scalar Ta,
-    const scalar phiEx,
     const word& name
 )
 :
     A_(A),
     beta_(beta),
-    Ta_(Ta),   
-    phiEx_(phiEx),
+    Ta_(Ta),
+    phiEx_(readPhi()),
     name_(name)
 {
 }
@@ -54,13 +53,39 @@ inline Foam::ArrheniusReactionRateExtend::ArrheniusReactionRateExtend
     A_(dict.get<scalar>("A")),
     beta_(dict.get<scalar>("beta")),
     Ta_(dict.get<scalar>("Ta")),
-    phiEx_(dict.get<scalar>("phi"))
+    phiEx_(readPhi())
 {
     name_ = dict.dictName();
 }
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
+inline Foam::scalar Foam::ArrheniusReactionRateExtend::readPhi()
+{
+    // Читается один раз за запуск, дальше берётся из кэша
+    static const scalar phi = []()
+    {
+        const fileName file
+        (
+            fileName(getEnv("FOAM_CASE"))/"constant"/"phiEq"
+        );
+
+        IFstream is(file);
+
+        if (!is.good())
+        {
+            FatalErrorInFunction
+                << "Cannot open " << file << nl
+                << exit(FatalError);
+        }
+
+        const dictionary d(is);
+        return d.get<scalar>("value");
+    }();
+
+    return phi;
+}
 
 inline Foam::scalar Foam::ArrheniusReactionRateExtend::operator()
 (
@@ -70,7 +95,6 @@ inline Foam::scalar Foam::ArrheniusReactionRateExtend::operator()
 ) const
 {
     scalar ak = A_;
-    scalar ak_old;
 
     if (mag(beta_) > VSMALL)
     {
@@ -82,7 +106,6 @@ inline Foam::scalar Foam::ArrheniusReactionRateExtend::operator()
         ak *= exp(-Ta_/T);
     }
     
-    ak_old=ak;
     if (name_ == "R1")
     {
         const scalar p_0_1 = 1.1,  s_0_1 = 0.09, b_1 = 0.37,   p_1_1 = 1.13, s_1_1 = 0.03, c_1 = 6.7,    p_2_1 = 1.6, s_2_1 = 0.22;
@@ -99,14 +122,6 @@ inline Foam::scalar Foam::ArrheniusReactionRateExtend::operator()
 
         ak *= f2;
     }
-    Info<< "ArrheniusReactionRateExtended: "
-    << "reaction = " << name_
-    << ", T = " << T
-    << ", p = " << p
-    << ", phiEx = " << phiEx_
-    << ", ak_old = " << ak_old
-    << ", ak = " << ak
-    << endl;
         
     return ak;
 }

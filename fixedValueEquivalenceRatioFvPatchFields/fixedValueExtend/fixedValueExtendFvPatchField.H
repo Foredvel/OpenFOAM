@@ -74,13 +74,11 @@ class fixedValueExtendFvPatchField
     public fvPatchField<Type>
 {
 private:
-    
-        Field<Type> origValue_;
 
 public:
 
     //- Runtime type information
-    TypeName("fixedValueExtend");
+    TypeName("fixedValueEquivalenceRatio");
 
 
     // Constructors

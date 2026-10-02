@@ -496,6 +496,8 @@ $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/zeroGradientFvPatchField.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/zeroGradientFvPatchField.C \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvPatchFieldMacros.H \
 ./fixedValueExtend/fixedValueExtendFvPatchField.C \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IFstream.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fstreamPointer.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/volFields.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/GeometricFields.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/GeometricScalarField.H \

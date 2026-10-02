@@ -27,6 +27,11 @@ License
 \*---------------------------------------------------------------------------*/
 
 #include "fixedValueExtendFvPatchField.H"
+#include "fixedValueExtendFvPatchField.H"
+#include "IFstream.H"
+#include "dictionary.H"
+#include "OSspecific.H"
+
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
@@ -39,7 +44,6 @@ Foam::fixedValueExtendFvPatchField<Type>::fixedValueExtendFvPatchField
 :
     fvPatchField<Type>(p, iF)
 {
-	Info<< "!!! fixedValueExtendFvPatchField CONSTRUCTOR for "<< iF.name() << " !!!" << endl;
 }
 
 
@@ -53,7 +57,6 @@ Foam::fixedValueExtendFvPatchField<Type>::fixedValueExtendFvPatchField
 :
     fvPatchField<Type>(p, iF, value)
 {
-	Info<< "!!! fixedValueExtendFvPatchField CONSTRUCTOR for "<< iF.name() << " !!!" << endl;
 }
 
 
@@ -66,56 +69,64 @@ Foam::fixedValueExtendFvPatchField<Type>::fixedValueExtendFvPatchField
     IOobjectOption::readOption requireValue
 )
 :
-    fvPatchField<Type>(p, iF, dict, requireValue),
-    origValue_(*this)
+    fvPatchField<Type>
+    (
+        p, iF, dict,
+        (
+            (iF.name() == "CH4" || iF.name() == "O2" || iF.name() == "N2")
+          ? IOobjectOption::NO_READ
+          : requireValue
+        )
+    )
 {
     if constexpr (std::is_same<Type, scalar>::value)
     {
-        const scalar k_O_air         = 0.20946;
-        const scalar K_fuel_oxidizer = 0.5;
-        const scalar Mass_CH4 = 12.011 + 1.0080*4;
-        const scalar Mass_O2  = 15.999*2;
-        const scalar Mass_N2  = 14.007*2;
-
-        Field<Type> transformed(origValue_.size());
-        
         const word& fieldName = this->internalField().name();
-        
+
         if (fieldName == "CH4" || fieldName == "O2" || fieldName == "N2")
-    	{
-    	    Field<Type> transformed(origValue_.size());
-            
-            forAll(origValue_, facei)
+        {
+            // --- читаем phi из constant/equivalenceRatio ---
+            const fileName file
+            (
+                fileName(getEnv("FOAM_CASE"))/"constant"/"phiEq"
+            );
+
+            IFstream is(file);
+
+            if (!is.good())
             {
-            
-                const scalar v = origValue_[facei];
-
-                const scalar Y_mole_CH4 =  K_fuel_oxidizer*k_O_air*v / (K_fuel_oxidizer*k_O_air*v + 1);
-
-                const scalar Y_mole_O2 = (1 - Y_mole_CH4)*k_O_air;
-                const scalar Y_mole_N2 = 1 - Y_mole_CH4 - Y_mole_O2;
-
-                const scalar Mass_mixture = Mass_CH4*Y_mole_CH4 + Mass_O2*Y_mole_O2 + Mass_N2*Y_mole_N2;
-        
-    		if (fieldName == "CH4")
-    		{
-    		    transformed[facei] = Mass_CH4/Mass_mixture*Y_mole_CH4;
-    		}
-    		else if (fieldName == "O2")
-    		{
-    		    transformed[facei] = Mass_O2/Mass_mixture*Y_mole_O2;
-    		}
-    		else if (fieldName == "N2")
-    		{
-    		    transformed[facei] = Mass_N2/Mass_mixture*Y_mole_N2;
-    		}
-    		
-    		Info<<"////// field: "<< fieldName << " and znacheniye: " << transformed[facei] << " //////" << endl;
-    		Field<Type>::operator=(transformed);
-    		
+                FatalErrorInFunction
+                    << "Cannot open " << file << nl
+                    << "Create it with entry: value <phi>;" << nl
+                    << exit(FatalError);
             }
-        
-	}
+
+            const dictionary phiDict(is);
+            const scalar phi = phiDict.get<scalar>("value");
+
+            // --- расчёт состава ---
+            const scalar k_O_air         = 0.20946;
+            const scalar K_fuel_oxidizer = 0.5;
+            const scalar Mass_CH4 = 12.011 + 1.0080*4;
+            const scalar Mass_O2  = 15.999*2;
+            const scalar Mass_N2  = 14.007*2;
+
+            const scalar Y_mole_CH4 =
+                K_fuel_oxidizer*k_O_air*phi
+              / (K_fuel_oxidizer*k_O_air*phi + 1);
+            const scalar Y_mole_O2 = (1 - Y_mole_CH4)*k_O_air;
+            const scalar Y_mole_N2 = 1 - Y_mole_CH4 - Y_mole_O2;
+
+            const scalar Mass_mixture =
+                Mass_CH4*Y_mole_CH4 + Mass_O2*Y_mole_O2 + Mass_N2*Y_mole_N2;
+
+            scalar Y = 0;
+            if (fieldName == "CH4")     Y = Mass_CH4/Mass_mixture*Y_mole_CH4;
+            else if (fieldName == "O2") Y = Mass_O2 /Mass_mixture*Y_mole_O2;
+            else                        Y = Mass_N2 /Mass_mixture*Y_mole_N2;
+
+            Field<Type>::operator=(Field<Type>(this->size(), Y));
+        }
     }
 }
 
@@ -141,7 +152,6 @@ Foam::fixedValueExtendFvPatchField<Type>::fixedValueExtendFvPatchField
             << " patch fields." << endl;
     }
     
-    Info<< "!!! fixedValueExtendFvPatchField CONSTRUCTOR for "<< iF.name() << " !!!" << endl;
 }
 
 
@@ -154,7 +164,6 @@ Foam::fixedValueExtendFvPatchField<Type>::fixedValueExtendFvPatchField
 :
     fvPatchField<Type>(ptf, iF)
 {
-	Info<< "!!! fixedValueExtendFvPatchField CONSTRUCTOR for "<< iF.name() << " !!!" << endl;
 }
 
 
@@ -189,7 +198,6 @@ Foam::fixedValueExtendFvPatchField<Type>::valueBoundaryCoeffs
     const tmp<scalarField>&
 ) const
 {
-    Info << "FIELD: "<< this->internalField().name()<< nl;
     return *this;
 }
 

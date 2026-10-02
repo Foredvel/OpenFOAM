@@ -352,6 +352,11 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/addToRunTimeSelectionTable.H \
 /home/user-t6/OpenFOAM/OpenFoam-diw/devFoam/src/twoSCH4Bfer/src/lnInclude/twoSCH4BferI.H \
 /home/user-t6/OpenFOAM/OpenFoam-diw/devFoam/src/twoSCH4Bfer/src/lnInclude/twoSCH4Bfer.C \
 lnInclude/ArrheniusReactionRateExtend.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IFstream.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fstreamPointer.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/OSspecific.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fileNameList.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringList.H \
 lnInclude/ArrheniusReactionRateExtendI.H \
 $(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/infiniteReactionRate.H \
 $(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/infiniteReactionRateI.H \

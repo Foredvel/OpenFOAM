@@ -164,6 +164,18 @@ makeThermos
     specie
 );
 
+makeThermos
+(
+    psiThermo,
+    hePsiThermo,
+    pureMixture,
+    twoSCH4Bfer,
+    sensibleInternalEnergy,
+    janafThermo,
+    perfectGas,
+    specie
+);
+
 
 
 //////////////////////////////////////////////////////////////////////////////
