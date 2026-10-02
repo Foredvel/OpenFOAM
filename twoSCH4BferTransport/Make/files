@@ -1,0 +1,9 @@
+include/makeReactionsTwoS.C
+include/makeChemistryReadersTwoS.C
+include/makeChemistrySolversTwoS.C
+include/BasicChemistryModelsTwoS.C
+include/makeChemistryTabulationMethodsTwoS.C
+include/makeChemistryReductionMethodsTwoS.C
+psiThermosTwoS.C
+
+LIB = $(FOAM_USER_APPBIN)/twoSCH4Bfer

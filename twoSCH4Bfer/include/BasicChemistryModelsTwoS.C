@@ -285,6 +285,46 @@ namespace Foam
         rhoReactionThermo,
         twoSCH4BferConstEThermoPhysics
     );
+    makeChemistryModelType
+    (
+        StandardChemistryModel,
+        rhoReactionThermo,
+        twoSCH4BfericoPoly8HThermoPhysics
+    );
+
+    makeChemistryModelType
+    (
+        TDACChemistryModel,
+        rhoReactionThermo,
+        twoSCH4BfericoPoly8HThermoPhysics
+    );
+    makeChemistryModelType
+    (
+        StandardChemistryModel,
+        rhoReactionThermo,
+        twoSCH4BfericoPoly8EThermoPhysics
+    );
+
+    makeChemistryModelType
+    (
+        TDACChemistryModel,
+        rhoReactionThermo,
+        twoSCH4BfericoPoly8EThermoPhysics
+    );
+    
+    makeChemistryModelType
+    (
+        StandardChemistryModel,
+        psiReactionThermo,
+        twoSCH4BferGasHThermoPhysics
+    );
+
+    makeChemistryModelType
+    (
+        TDACChemistryModel,
+        psiReactionThermo,
+        twoSCH4BferGasHThermoPhysics
+    );
 
 
 }

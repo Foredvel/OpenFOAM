@@ -1,0 +1,4 @@
+makeReactionsExtend.C
+
+LIB = $(FOAM_USER_APPBIN)/ArrheniusReactionRateEquivalenceRatio
+

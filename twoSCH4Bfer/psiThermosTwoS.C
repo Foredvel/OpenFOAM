@@ -122,52 +122,17 @@ namespace Foam
 
 
 /* * * * * * * * * * * * * * * * * Enthalpy-based * * * * * * * * * * * * * */
-
-makeThermos
+makeReactionThermo
 (
-    psiThermo,
+    psiReactionThermo,
     hePsiThermo,
-    pureMixture,
+    reactingMixture,
     twoSCH4Bfer,
     sensibleEnthalpy,
-    hConstThermo,
+    janafThermo,
     perfectGas,
     specie
 );
-
-/* * * * * * * * * * * * * * Internal-energy-based * * * * * * * * * * * * * */
-
-
-
-makeThermos
-(
-    psiThermo,
-    hePsiThermo,
-    pureMixture,
-    twoSCH4Bfer,
-    sensibleInternalEnergy,
-    eConstThermo,
-    perfectGas,
-    specie
-);
-
-
-makeThermos
-(
-    psiThermo,
-    hePsiThermo,
-    pureMixture,
-    twoSCH4Bfer,
-    sensibleInternalEnergy,
-    hConstThermo,
-    perfectGas,
-    specie
-);
-
-
-
-//////////////////////////////////////////////////////////////////////////////
-
 
 // * * * * * * * * * * * * * * * * *reactingMixture* * * * * * * * * * * * * * * * * * * * //
 // * * * * * * * * * * * * * * * * *ANALogSutherlandTransport* * * * * * * * * * * * * * * * * * * * //
@@ -326,6 +291,24 @@ makeThermoPhysicsReactionThermos
     heRhoThermo,
     reactingMixture,
     twoSCH4BferConstEThermoPhysics
+);
+
+makeThermoPhysicsReactionThermos
+(
+    rhoThermo,
+    rhoReactionThermo,
+    heRhoThermo,
+    reactingMixture,
+    twoSCH4BfericoPoly8HThermoPhysics
+);
+
+makeThermoPhysicsReactionThermos
+(
+    rhoThermo,
+    rhoReactionThermo,
+    heRhoThermo,
+    reactingMixture,
+    twoSCH4BfericoPoly8EThermoPhysics
 );
 
 
