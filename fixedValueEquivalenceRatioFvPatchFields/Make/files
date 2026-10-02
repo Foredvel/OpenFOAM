@@ -1,3 +1,0 @@
-./fixedValueExtend/fixedValueExtendFvPatchFields.C
-
-LIB = $(FOAM_USER_APPBIN)/fixedValueEquivalenceRatioFvPatchFields
