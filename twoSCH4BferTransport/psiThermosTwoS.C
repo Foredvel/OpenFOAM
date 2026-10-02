@@ -122,17 +122,64 @@ namespace Foam
 
 
 /* * * * * * * * * * * * * * * * * Enthalpy-based * * * * * * * * * * * * * */
-makeReactionThermo
+
+makeThermos
 (
-    psiReactionThermo,
+    psiThermo,
     hePsiThermo,
-    reactingMixture,
+    pureMixture,
     twoSCH4Bfer,
     sensibleEnthalpy,
+    hConstThermo,
+    perfectGas,
+    specie
+);
+
+/* * * * * * * * * * * * * * Internal-energy-based * * * * * * * * * * * * * */
+
+
+
+makeThermos
+(
+    psiThermo,
+    hePsiThermo,
+    pureMixture,
+    twoSCH4Bfer,
+    sensibleInternalEnergy,
+    eConstThermo,
+    perfectGas,
+    specie
+);
+
+
+makeThermos
+(
+    psiThermo,
+    hePsiThermo,
+    pureMixture,
+    twoSCH4Bfer,
+    sensibleInternalEnergy,
+    hConstThermo,
+    perfectGas,
+    specie
+);
+
+makeThermos
+(
+    psiThermo,
+    hePsiThermo,
+    pureMixture,
+    twoSCH4Bfer,
+    sensibleInternalEnergy,
     janafThermo,
     perfectGas,
     specie
 );
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
 
 // * * * * * * * * * * * * * * * * *reactingMixture* * * * * * * * * * * * * * * * * * * * //
 // * * * * * * * * * * * * * * * * *ANALogSutherlandTransport* * * * * * * * * * * * * * * * * * * * //

@@ -6,6 +6,5 @@ include/BasicChemistryModelsTwoS.C \
 include/makeChemistryTabulationMethodsTwoS.C \
 include/makeChemistryReductionMethodsTwoS.C \
 psiThermosTwoS.C \
-makeReactionsExtend.C \
 
 # sources

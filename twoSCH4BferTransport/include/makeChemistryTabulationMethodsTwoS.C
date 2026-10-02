@@ -38,7 +38,6 @@ namespace Foam
 {
     // Chemistry solvers based on sensibleEnthalpy
     makeChemistryTabulationMethods(rhoReactionThermo, twoSCH4BferGasHThermoPhysics);
-    makeChemistryTabulationMethods(psiReactionThermo, twoSCH4BferGasHThermoPhysics);
     makeChemistryTabulationMethods(rhoReactionThermo, twoSCH4BferPengRobinsonGasHThermoPhysics);
     makeChemistryTabulationMethods(rhoReactionThermo, twoSCH4BferincompressibleGasHThermoPhysics);
     makeChemistryTabulationMethods(rhoReactionThermo, twoSCH4BfergasEThermoPhysics);
