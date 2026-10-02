@@ -7,4 +7,4 @@ include/makeChemistryReductionMethodsTwoS.C
 psiThermosTwoS.C
 makeReactionsExtend.C
 
-LIB = $(FOAM_USER_APPBIN)/twoSCH4BferLib
+LIB = $(FOAM_USER_LIBBIN)/twoSCH4BferLib
