@@ -1,0 +1,45 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2606                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Burner-stabilized flame (phi = 1.0, стехиометрия).
+// Свежая смесь -> default (T=300, uniform species из 0/).
+// Горячий очаг у выхода (x=45..50 мм) с продуктами полного сгорания phi=1.0:
+// CH4 + 2O2 -> CO2 + 2H2O, массовые доли CO2=0.549846, H2O=0.450154.
+// T=2200 K (выше Tad, чтобы гарантировать поджиг).
+
+defaultFieldValues
+(
+    volScalarFieldValue T 300
+);
+
+regions
+(
+    boxToCell
+    {
+        box (0.045 0 0) (0.05 0.0001 0.0001);
+        fieldValues
+        (
+            volScalarFieldValue T    1700
+            volScalarFieldValue CH4  0
+            volScalarFieldValue O2   0
+            volScalarFieldValue CO   0
+            volScalarFieldValue CO2  0.549846
+            volScalarFieldValue H2O  0.450154
+        );
+    }
+);
+
+// ************************************************************************* //

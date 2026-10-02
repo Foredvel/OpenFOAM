@@ -1,0 +1,41 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2606                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      thermophysicalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+thermoType
+{
+    type            heRhoThermo;
+    mixture         reactingMixture;
+    transport       twoSCH4Bfer;
+    thermo          janaf;
+    energy          sensibleEnthalpy;
+    equationOfState incompressiblePerfectGas;
+    specie          specie;
+}
+
+// Низко-маховский предел: давление не входит в уравнение состояния,
+// поэтому член dpdt (работа давления) в уравнении энергии выключаем.
+dpdt            no;
+
+inertSpecie         N2;
+
+chemistryReader     foamChemistryReader;
+
+foamChemistryFile   "<constant>/reactions";
+
+foamChemistryThermoFile "<constant>/thermo.compressibleGas";
+
+
+// ************************************************************************* //

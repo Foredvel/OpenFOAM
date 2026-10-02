@@ -1,0 +1,88 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2606                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+libs
+(
+    "$FOAM_USER_APPBIN/twoSCH4Bfer.so"
+    "$FOAM_USER_APPBIN/ArrheniusReactionRateExtend.so"
+    "$FOAM_USER_APPBIN/fixedValueExtendFvPatchFields.so"
+);
+
+application     reactingFoamLowMach;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         1.0;
+
+deltaT          5e-6;
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.01;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+adjustTimeStep  true;
+
+maxCo           0.2;
+
+maxDeltaT       1e-5;
+
+minDeltaT       1e-8;
+
+functions
+{
+    // положение фронта по максимуму тепловыделения Qdot
+    flameFront
+    {
+        type            fieldMinMax;
+        libs            ("libfieldFunctionObjects.so");
+        fields          (Qdot);
+        location        true;
+        mode            magnitude;
+        executeControl  writeTime;
+        writeControl    writeTime;
+        write           true;
+        log             false;
+    }
+
+    // вывод плотности rho = p/(R T) для диагностики провала T
+    writeRho
+    {
+        type            writeObjects;
+        libs            ("libutilityFunctionObjects.so");
+        objects         (rho);
+        writeControl    writeTime;
+    }
+}
+
+// ************************************************************************* //
