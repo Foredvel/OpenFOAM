@@ -87,18 +87,13 @@ class twoSCH4Bfer
     // Private Data
 
         //- Constant dynamic viscosity [Pa.s]
-        //scalar mu_;
-
-        //- Reciprocal Prandtl Number [-]
-        //scalar rPr_;
-
-        //- Constant dynamic viscosity [Pa.s]
         scalar mu_;
-        scalar alphah_;
         scalar T0_;
 
         //- Is the Prandtl Number constant?
         bool constPr_;
+
+        scalar alpha_;
 
         //- Reciprocal Prandtl Number [-]
         scalar rPr_;
@@ -121,9 +116,9 @@ public:
         (
             const Thermo& t,
             const scalar mu,
-            const scalar alphah,
             const scalar T0,
             const bool constPr,
+            const scalar alpha,
             const scalar rPr,
             const scalar kappa
         );

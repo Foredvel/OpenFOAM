@@ -20,10 +20,10 @@ EXE_INC = \
     -I$(LIB_SRC)/transportModels/compressible/lnInclude \
     -I$(FOAM_SRC)/thermophysicalModels/reactionThermo/lnInclude
 
-EXE_LIBS = \
+LIB_LIBS = \
     -lOpenFOAM \
     -lspecie \
-    -lchemistryModel \
+    -Wl,--no-as-needed -lchemistryModel -Wl,--as-needed \
     -lfluidThermophysicalModels \
     -lthermophysicalProperties \
     -lfiniteVolume \

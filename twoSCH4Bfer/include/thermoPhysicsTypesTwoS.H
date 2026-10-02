@@ -306,7 +306,36 @@ namespace Foam
         >
     >
     twoSCH4BferConstEThermoPhysics;//constEThermoPhysics
+    
+    typedef
+    twoSCH4Bfer
+    <
+        species::thermo
+        <
+            hPolynomialThermo
+            <
+                icoPolynomial<specie, 8>,
+                8
+            >,
+            sensibleEnthalpy
+        >
+    >
+    twoSCH4BfericoPoly8HThermoPhysics;
 
+    typedef
+    twoSCH4Bfer
+    <
+        species::thermo
+        <
+            hPolynomialThermo
+            <
+                icoPolynomial<specie, 8>,
+                8
+            >,
+            sensibleInternalEnergy
+        >
+    > 
+    twoSCH4BfericoPoly8EThermoPhysics;
 
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

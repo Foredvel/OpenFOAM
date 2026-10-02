@@ -57,6 +57,9 @@ namespace Foam
     makeChemistryTabulationMethods(rhoReactionThermo, twoSCH4BferConstFluidEThermoPhysics);
     makeChemistryTabulationMethods(rhoReactionThermo, twoSCH4BferConstAdiabaticFluidEThermoPhysics);
     makeChemistryTabulationMethods(rhoReactionThermo, twoSCH4BferConstEThermoPhysics);
+    makeChemistryTabulationMethods(rhoReactionThermo, twoSCH4BfericoPoly8HThermoPhysics);
+    makeChemistryTabulationMethods(rhoReactionThermo, twoSCH4BfericoPoly8EThermoPhysics);
+
 
 
     

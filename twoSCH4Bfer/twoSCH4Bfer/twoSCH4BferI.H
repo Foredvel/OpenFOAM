@@ -37,18 +37,18 @@ inline Foam::twoSCH4Bfer<Thermo>::twoSCH4Bfer
 (
     const Thermo& t,
     const scalar mu,
-    const scalar alphah,
     const scalar T0,
     const bool constPr,
+    const scalar alpha,
     const scalar rPr,
     const scalar kappa
 )
 :
     Thermo(t),
     mu_(mu),
-    alphah_(alphah),
     T0_(T0),
     constPr_(constPr),
+    alpha_(alpha),
     rPr_(rPr),
     kappa_(kappa)
 {}
@@ -63,9 +63,9 @@ inline Foam::twoSCH4Bfer<Thermo>::twoSCH4Bfer
 :
     Thermo(name, ct),
     mu_(ct.mu_),
-    alphah_(ct.alphah_),
     T0_(ct.T0_),
     constPr_(ct.constPr_),
+    alpha_(ct.alpha_),
     rPr_(ct.rPr_),
     kappa_(ct.kappa_)
 {}
@@ -99,13 +99,17 @@ inline Foam::scalar Foam::twoSCH4Bfer<Thermo>::mu
     const scalar T
 ) const
 {
-    return mu_ * pow((T / T0_), alphah_);
+    return mu_ * pow((T / T0_), alpha_);
 }
 
 template<class Thermo>
-inline Foam::scalar Foam::twoSCH4Bfer<Thermo>::alphah(const scalar p, const scalar T) const
+inline Foam::scalar Foam::twoSCH4Bfer<Thermo>::alphah
+(
+    const scalar p,
+    const scalar T
+) const
 {
-    return alphah_;
+    return mu(p, T)*rPr_;
 }
 
 
@@ -116,7 +120,7 @@ inline Foam::scalar Foam::twoSCH4Bfer<Thermo>::kappa
     const scalar T
 ) const
 {
-    return constPr_ ? this->Cp(p, T) * mu_ * pow((T / T0_), alphah_) * rPr_ : kappa_;
+    return constPr_ ? this->Cp(p, T) * mu_ * pow((T / T0_), alpha_) * rPr_ : kappa_;
 }
 
 
@@ -186,9 +190,12 @@ inline Foam::twoSCH4Bfer<Thermo> Foam::operator+
         return twoSCH4Bfer<Thermo>
         (
             t,
-            0,
+            0,           
+            ct1.T0_,       
             ct1.constPr_,
-            ct1.rPr_
+            ct1.alpha_,
+            ct1.rPr_,
+            ct1.constPr_ ? NAN : ct1.kappa_
         );
     }
     else
@@ -215,6 +222,7 @@ inline Foam::twoSCH4Bfer<Thermo> Foam::operator+
             t,
             Y1*ct1.mu_ + Y2*ct2.mu_,
             ct1.constPr_,
+            ct1.alpha_,
             ct1.constPr_ ? 1/(Y1/ct1.rPr_ + Y2/ct2.rPr_) : NAN,
             ct1.constPr_ ? NAN : Y1*ct1.kappa_ + Y2*ct2.kappa_
         );
@@ -233,9 +241,9 @@ inline Foam::twoSCH4Bfer<Thermo> Foam::operator*
     (
         s*static_cast<const Thermo&>(ct),
         ct.mu_,
-        ct.alphah_,
         ct.T0_,
         ct.constPr_,
+        ct.alpha_,
         ct.rPr_,
         ct.kappa_
     );

@@ -104,6 +104,8 @@ namespace Foam
     makeReactions(twoSCH4BferConstFluidEThermoPhysics, twoSCH4BferConstFluidEReaction);
     makeReactions(twoSCH4BferConstAdiabaticFluidEThermoPhysics, twoSCH4BferConstAdiabaticFluidEReaction);
     makeReactions(twoSCH4BferConstEThermoPhysics, twoSCH4BferConstEReaction);
+    makeReactions(twoSCH4BfericoPoly8HThermoPhysics, twoSCH4BfericoPoly8HReaction);
+    makeReactions(twoSCH4BfericoPoly8EThermoPhysics, twoSCH4BfericoPoly8EReaction);
 
 
     // sensible enthalpy based reactions

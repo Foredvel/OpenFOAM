@@ -28,14 +28,14 @@ License
 template<class Thermo>
 Foam::twoSCH4Bfer<Thermo>::twoSCH4Bfer(const Foam::dictionary& dict)
 :
-    Thermo(dict) // если наследуем Thermo
+    Thermo(dict) 
 {
     
     const Foam::dictionary& transportDict = dict.subDict("transport");
 
     mu_    = dict.subDict("transport").get<scalar>("mu");
-    alphah_ = dict.subDict("transport").get<scalar>("alpha");
     T0_ = dict.subDict("transport").get<scalar>("T0");
+    alpha_ = dict.subDict("transport").get<scalar>("muExponent");
 
     const bool foundPr    = transportDict.found("Pr");
     const bool foundKappa = transportDict.found("kappa");
@@ -49,16 +49,16 @@ Foam::twoSCH4Bfer<Thermo>::twoSCH4Bfer(const Foam::dictionary& dict)
 
     constPr_ = foundPr;
     if (constPr_)
-{
-    transportDict.lookup("Pr") >> rPr_;
-    rPr_ = 1.0/rPr_;
-    kappa_ = NAN;
-}
-else
-{
-    transportDict.lookup("kappa") >> kappa_;
-    rPr_ = NAN;
-}
+    {
+        transportDict.lookup("Pr") >> rPr_;
+        rPr_ = 1.0/rPr_;
+        kappa_ = NAN;
+    }
+    else
+    {
+        transportDict.lookup("kappa") >> kappa_;
+        rPr_ = NAN;
+    }
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
@@ -74,14 +74,14 @@ void Foam::twoSCH4Bfer<Thermo>::twoSCH4Bfer::write(Ostream& os) const
     // Entries in dictionary format
     {
         os.beginBlock("transport");
-        os.writeEntry("mu0", mu_);
-        os.writeEntry("alphah", alphah_);
+        os.writeEntry("mu", mu_);
+        os.writeEntry("alpha", alpha_);
         os.writeEntry("T0", T0_);
         os.endBlock();
 
         if (constPr_)
         {
-            os.writeEntry("Pr", 1.0/rPr_);
+            os.writeEntry("Pr", rPr_);
         }
         else
         {

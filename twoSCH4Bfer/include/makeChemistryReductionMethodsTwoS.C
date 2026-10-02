@@ -56,6 +56,8 @@ namespace Foam
     makeChemistryReductionMethods(rhoReactionThermo, twoSCH4BferConstFluidEThermoPhysics);
     makeChemistryReductionMethods(rhoReactionThermo, twoSCH4BferConstAdiabaticFluidEThermoPhysics);
     makeChemistryReductionMethods(rhoReactionThermo, twoSCH4BferConstEThermoPhysics);
+    makeChemistryReductionMethods(rhoReactionThermo, twoSCH4BfericoPoly8HThermoPhysics);
+    makeChemistryReductionMethods(rhoReactionThermo, twoSCH4BfericoPoly8EThermoPhysics);
 }
 
 

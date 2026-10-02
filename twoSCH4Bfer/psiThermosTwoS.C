@@ -328,6 +328,24 @@ makeThermoPhysicsReactionThermos
     twoSCH4BferConstEThermoPhysics
 );
 
+makeThermoPhysicsReactionThermos
+(
+    rhoThermo,
+    rhoReactionThermo,
+    heRhoThermo,
+    reactingMixture,
+    twoSCH4BfericoPoly8HThermoPhysics
+);
+
+makeThermoPhysicsReactionThermos
+(
+    rhoThermo,
+    rhoReactionThermo,
+    heRhoThermo,
+    reactingMixture,
+    twoSCH4BfericoPoly8EThermoPhysics
+);
+
 
 // *******************************************multiComponentMixture****************************** //
 // *******************************************ANALogSutherlandTransport****************************** //

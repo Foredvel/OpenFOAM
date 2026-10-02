@@ -32,8 +32,8 @@ Description
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef reactionTypes_H
-#define reactionTypes_H
+#ifndef reactionTypesTwoS_H
+#define reactionTypesTwoS_H
 
 #include "thermoPhysicsTypesTwoS.H"
 #include "Reaction.H"
@@ -66,6 +66,8 @@ namespace Foam
     typedef Reaction<twoSCH4BferConstFluidEThermoPhysics> twoSCH4BferConstFluidEReaction;
     typedef Reaction<twoSCH4BferConstAdiabaticFluidEThermoPhysics> twoSCH4BferConstAdiabaticFluidEReaction;
     typedef Reaction<twoSCH4BferConstEThermoPhysics> twoSCH4BferConstEReaction;
+    typedef Reaction<twoSCH4BfericoPoly8HThermoPhysics> twoSCH4BfericoPoly8HReaction;
+    typedef Reaction<twoSCH4BfericoPoly8EThermoPhysics> twoSCH4BfericoPoly8EReaction;
 
 
 

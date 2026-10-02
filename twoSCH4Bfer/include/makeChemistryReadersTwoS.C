@@ -96,6 +96,12 @@ makeChemistryReaderType(foamChemistryReader, twoSCH4BferConstAdiabaticFluidETher
 makeChemistryReader(twoSCH4BferConstEThermoPhysics)
 makeChemistryReaderType(foamChemistryReader, twoSCH4BferConstEThermoPhysics);
 
+makeChemistryReader(twoSCH4BfericoPoly8HThermoPhysics)
+makeChemistryReaderType(foamChemistryReader, twoSCH4BfericoPoly8HThermoPhysics);
+
+makeChemistryReader(twoSCH4BfericoPoly8EThermoPhysics)
+makeChemistryReaderType(foamChemistryReader, twoSCH4BfericoPoly8EThermoPhysics);
+
 
 
 

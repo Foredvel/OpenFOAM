@@ -55,6 +55,8 @@ namespace Foam
     makeChemistrySolverTypes(rhoReactionThermo, twoSCH4BferConstFluidEThermoPhysics);
     makeChemistrySolverTypes(rhoReactionThermo, twoSCH4BferConstAdiabaticFluidEThermoPhysics);
     makeChemistrySolverTypes(rhoReactionThermo, twoSCH4BferConstEThermoPhysics);
+    makeChemistrySolverTypes(rhoReactionThermo, twoSCH4BfericoPoly8HThermoPhysics);
+    makeChemistrySolverTypes(rhoReactionThermo, twoSCH4BfericoPoly8EThermoPhysics);
 
 }
 
